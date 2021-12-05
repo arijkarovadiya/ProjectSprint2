@@ -1,3 +1,7 @@
+//Arij Karovadiya
+//1779053
+
+
 // load the things we need
 var express = require('express');
 var app = express();
@@ -14,23 +18,25 @@ app.use(bodyParser.urlencoded());
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
-// use res.render to load up an ejs view file
+
 
 // index page 
+//simple index page to let the user know that he/she can do two things using this site
 app.get('/', function(req, res) {
     var tagline = "To Start, simply choose one of the two options below.";
-
+    //rendering the index page with the simple tagline above
     res.render('pages/index', {
         tagline: tagline
     });
 });
 
+//the choose page will let the user choose the friends who attending the part
 app.get('/choose', function(req, res) {
+    //axious calls the api from the back end to show all users
     axios.get('http://127.0.0.1:5000/api/showuser')
     .then((response)=>{
         console.log(response.data);
-        //console.log(response.data.results[1].trackName);
-    
+    //taking the info from the api to then pass it to the choose.ejs with all the info in the body variable
     fullinfo = response.data;
     res.render('pages/choose.ejs', {body: fullinfo})
     });
@@ -39,7 +45,7 @@ app.get('/choose', function(req, res) {
 
 
 app.post('/processdynamicform', function(req, res){
-    //go directly to thanks.ejs and show dynamic checkbox selection
+    //taking the info from the form and recording it and showing it in the console
     console.log(req.body);
     selectedID = req.body;
     for (x in req.body) {
@@ -47,45 +53,47 @@ app.post('/processdynamicform', function(req, res){
         console.log(id);
     }
     fulluser = req.body
-
+    //need to get the showrestaurants to correlate with users 
     axios.get('http://127.0.0.1:5000/api/showrestaurants')
     .then((response)=>{
         console.log(response.data);
+    //jsonifying it so it is easier to parse, or take information individually. 
     fullinfo = response.data;
     fullinfo2 = JSON.parse(JSON.stringify(fullinfo))
-    
+    //rendering it to thanks.ejs to filter through the users who will be coming
     res.render('pages/thanks.ejs', {user: req.body, restaurants: fullinfo2})
     })
 });
 
-
+//edit page is just rendering the edit.ejs to then give the user two options:
+//1. Add/Delete Friends
+//2. Edit his/her preference
 app.get('/edit', function(req, res) {
-    
-    fullinfo = "hi";
+    fullinfo = "Add/delete friends or edit their preference ";
+    //rendering with a simple string variable
     res.render('pages/edit.ejs', {body: fullinfo})
-    
- 
 });
 
 
-
+//processdynamicform2 is taking the user info again from the api
+//and pushing it to thanks2.ejs, where the user can add or delete 
+//people from the list
 app.post('/processdynamicform2', function(req, res){
-
-
     axios.get('http://127.0.0.1:5000/api/showuser')
     .then((response)=>{
         console.log(response.data);
     fullinfo = response.data;
-    
+    //rendering with the user variable, which carries all the "friends"
     res.render('pages/thanks2.ejs', {user: fullinfo})
     })
 });
 
 
-
+//processdynamicform3 is taking the user info again from the api
+//and pushing it to thanks3.ejs, where the user can manupulate 
+//the friend's preference from the list
 app.post('/processdynamicform3', function(req, res){
-
-
+    // will also take showusers api and push it to thanks3.ejs
     axios.get('http://127.0.0.1:5000/api/showuser')
     .then((response)=>{
         console.log(response.data);
@@ -95,113 +103,27 @@ app.post('/processdynamicform3', function(req, res){
     })
 });
 
+app.post('/processdynamicform4', function(req, res){
+    // will also take showusers api and push it to thanks4.ejs
+    //do not have a thanks4.ejs set up properly, so I am not including it.
+    axios.get('http://127.0.0.1:5000/api/showuser')
+    .then((response)=>{
+        console.log(response.data);
+    fullinfo = response.data;
+    
+    res.render('pages/thanks4.ejs', {user: fullinfo})
+    })
+});
 
 
 
 
 /*
-// choose a movie page
-app.get('/choose', function(req, res) {
-    res.render('pages/choose');
-});
-
-// about page
-app.get('/about', function(req, res) {
 
     
-    //itunes API call
-    axios.get('https://itunes.apple.com/search?term=radiohead')
-    .then((response)=>{
-    console.log(response.data);
-    });
-    res.render('pages/about');
+
+
     
-
-    /*
-    //superhero API CALL
-    axios.get('https://superheroapi.com/api/10221405381743383/69')
-    .then((response)=>{
-    console.log(response.data);
-    });
-    res.render('pages/about');
-    */
-
-    /*
-    //local API call to my Python REST API that delivers cars
-    axios.get(`http://127.0.0.1:5000/api/cars/all`)
-    .then((response)=>{
-        
-        var cars = response.data;
-        var tagline = "Here is the data coming from my own API";
-        console.log(cars);
-         // use res.render to load up an ejs view file
-        res.render('pages/about', {
-            cars: cars,
-            tagline: tagline
-        });
-    }); 
-    */
-
-    /*
-    //get multiple service calls and combine the results in 1 function
-    axios.all([axios.get(`http://127.0.0.1:5000/api/cars/all`),
-    axios.get(`http://127.0.0.1:5000/api/cars?id=2`)])
-    .then(axios.spread((firstResponse, secondResponse) => {  
-  
-    var cars = firstResponse.data;
-    var tagline = "Here is the data coming from my own API";
-    var aSingleCar = secondResponse.data[0];
-
-    //use res.render to load up an ejs view file
-    res.render('pages/about', {
-        cars: cars,
-        tagline: tagline,
-        single: aSingleCar
-    });
-    }))
-    .catch(error => console.log(error)); 
-    
-    
-});
-
-// examples page 
-app.get('/examples', function(req, res) {
-    var exampleVar = "Javascript";
-    
-    // this will render our new example spage 
-    res.render("pages/examples.ejs", {exampleVar: exampleVar});
-});
-
-app.post('/process_form', function(req, res){
-    // create a variable to hold the username parsed from the request body
-    var username = req.body.username
-    // create a variable to hold ....
-    var password = req.body.password
-
-    let check = 0;
-
-    if (req.body.rememberme == 'on')
-            check = 1;
-
-   console.log("email is: " + username);
-   console.log("password is: " + password);
-   console.log("checkedbox checked: " + check);
-
-    res.render('pages/thanks.ejs', {body: req.body})
-  
-  })
-
-  app.post('/processdynamicform', function(req, res){
-    //go directly to thanks.ejs and show dynamic checkbox selection
-    console.log(req.body);
-    selectedID = req.body;
-    for (x in req.body) {
-        var selectedName = x;
-        console.log("selected name is: " + selectedName);
-    }
-    res.render('pages/thanks.ejs', {body: req.body})
-  
-  })
 
 */
 

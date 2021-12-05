@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <p> Edit your a Friends preferences here</p>
+        
+        <br>
+        <br>
+        <div>
+
+            <form action="/processdynamicform4" method="post" class="jumbotron">
+                <% for(var i = 0; i < user.length; i++) { %>
+                    <div>
+
+                        <input type="checkbox" name=<%= user[i].id %>
+                        <label for=" <%= user[i].id %>"> <%= user[i].firstname %> <%= user[i].lastname %> </label><br>
+                        
+                    </div>
+                <% }; %>
+                <input type="submit">
+            </form>
+ 
+
+
+        
+
+        
+        
+    
+
+       
+    </main>
+
+</body>
+</html>
