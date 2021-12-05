@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main>
+<div class="row">
+    <div class="col-sm-8">
+        <div class="jumbotron">
+            <h2>Edit Friends or Thier Preferences</h2>
+            <p1>Select one of the two options below</p1>
+
+            <script type="text/javascript">
+                function submitForm(action) {
+                  var form = document.getElementById('friends');
+                  form.action = action;
+                  form.submit();
+                }
+            </script>
+            
+            
+            <form id="friends" method="post" class="jumbotron">
+        
+            
+                <input id="ShowButton" type="submit" onclick="submitForm('/processdynamicform2')" value="ADD/DELETE FRIENDS" />
+                <input id="ShowButton" type="submit" onclick="submitForm('/processdynamicform3')" value="EDIT A FRIENDS PREFERENCES" />
+              </form>
+
+ 
+        
+    </div>
+
+    
+
+</div>
+</main>
+
+
+</body>
+</html>

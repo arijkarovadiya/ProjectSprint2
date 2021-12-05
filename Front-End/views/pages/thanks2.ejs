@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <!-- print thank you message-->
+        <p> Edit your list of Friends here</p>
+        
+        <% for(i = 0; i<user.length; i++) { %>
+            <%=user[i].firstname%> <%=user[i].lastname%> 
+            <br>
+        <% } %>         
+        <br>
+        <br>
+        <div>
+
+        <h2> Add a Friend</h2>
+        <form action="/action_page.ejs">
+            <label for="firstname">First name:</label><br>
+            <input type="text" id="fname" name="firstname"><br>
+            <label for="lastname">Last name:</label><br>
+            <input type="text" id="lname" name="lastname"><br>
+            <label for="restaurant1">Restaurant Preference 1:</label><br>
+            <input type="text" id="rpreference1" name="RestaurantPreference"><br> 
+            <label for="restaurant2">Restaurant Preference 2:</label><br>
+            <input type="text" id="rpreference2" name="RestaurantPreference"><br>
+            <label for="restaurant3">Restaurant Preference 3:</label><br>
+            <input type="text" id="rpreference3" name="RestaurantPreference"><br>
+            <label for="restaurant4">Restaurant Preference 4:</label><br>
+            <input type="text" id="rpreference4" name="RestaurantPreference"><br>
+            <label for="restaurant5">Restaurant Preference 5:</label><br>
+            <input type="text" id="rpreference5" name="RestaurantPreference"><br><br>
+            <input type="submit" value="Submit">
+          </form> 
+        </div>
+        <br>
+        <br>
+        <br>
+
+        <div>
+
+            <h2> Delete a Friend</h2>
+            <p3 style="color:rgb(206, 7, 7)"> Caution: Deleting a Friend will delete all of his/her preferences</p3>
+            <br>
+            <br>
+            <form action="/action_page.ejs">
+                <label for="firstname">First name:</label><br>
+                <input type="text" id="fname" name="firstname"><br>
+                <label for="lastname">Last name:</label><br>
+                <input type="text" id="lname" name="lastname"><br>
+                <input type="submit" value="Submit">
+              </form> 
+            </div>
+
+
+ 
+
+
+        
+
+        
+        
+    
+
+       
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <!-- print thank you message-->
+        <p> Thank you for submitting the form.</p>
+        <h2> According to you and your friends preferences</h2>
+        <h2> Here is one random restaurant: </h2>
+
+        <!-- print the content of the form submission using EJS -->
+        <!--<%=JSON.stringify(user)%>  -->
+
+        <!--
+        <% for(id in user) { %>
+            <%=id%> 
+        <% } %>
+            <br>
+
+        
+        <% for(i = 0; i<restaurants.length; i++) { %>
+            <%=restaurants[i].id%> 
+        <% } %>                
+        <br>
+        -->
+
+        <% const arrr = [] %>
+        <% for(id in user) { %>
+            <% for(i = 0; i<restaurants.length; i++) { %>
+                <% if (id == restaurants[i].userid) { %>
+                    <% arrr.push(restaurants[i].place) %>
+                <% } %>
+            <% } %>
+        <% } %>
+
+
+        
+        <!--
+        <% for(i = 0; i<arrr.length; i++) { %>
+            <%= arrr[i] %> 
+        <% } %>  -->           
+        <br>
+
+        <% var randomPlace = arrr[Math.floor(Math.random()*arrr.length)]; %>
+
+        <h1 style="color:rgb(84, 84, 185)"> <%=randomPlace %> </h1>
+        
+
+        <!--
+        <%=JSON.stringify(restaurants[0].id)%> -->
+
+
+        
+
+        
+        
+    
+
+       
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main>
+<div class="row">
+    <div class="col-sm-8">
+        <div class="jumbotron">
+            <h2>Who's attending...</h2>
+            <p1>Select the people who will be attending below</p1>
+            <br>
+            <br>
+            <div>
+                <ol>
+                    <% for(var i = 0; i < body.length; i++) { %>
+                        <li> <%= body[i].firstname %> <%= body[i].lastname %> </li> 
+                    <%  } %>
+                </ol>
+            </div>
+            <form action="/processdynamicform" method="post" class="jumbotron">
+                <% for(var i = 0; i < body.length; i++) { %>
+                    <div>
+
+                        <input type="checkbox" name=<%= body[i].id %>
+                        <label for=" <%= body[i].id %>"> <%= body[i].firstname %> <%= body[i].lastname %> </label><br>
+
+                        <!-- <div><%= body[i].firstname %></div>
+                        <input type="checkbox" name=<%=body.name %>> 
+
+
+                        take out the::::::: value= <%= body[i].id %>-->
+
+                        
+                    </div>
+                <% }; %>
+                <input type="submit">
+            </form>
+
+        </div>
+    </div>
+
+    
+
+</div>
+</main>
+
+
+</body>
+</html>
